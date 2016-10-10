@@ -8,8 +8,7 @@ export default class InputBox extends React.Component{
       previouslySelected: [],
       hitSpaces: [],
       cpuSelectedCoordinate: undefined,
-      playerSuccess: "",
-      cpuSuccess: "",
+      success: "",
       cpuHits: [],
       cpuSelected: []
     }
@@ -55,23 +54,29 @@ checkPlayerSuccess(result){
   var previouslySelected = this.state.previouslySelected
   var hitArray = this.state.hitSpaces
   var r = document.getElementById('cpu-space'+space)
-  r.classList.remove('selectedCoordinate')
+  r.classList.remove('playerSelected')
   if(index > -1){
     r.classList.add('successfulHit')
     previouslySelected.push(selectedCoordinate)
+    var playerSuccess = "Congrats!! You hit one of their ships! Time for their move!"
     this.setState({
       previouslySelected: previouslySelected,
-      hitSpaces: hitArray
+      hitSpaces: hitArray,
+      success: playerSuccess
     })
     if(this.state.hitSpaces.length === 10){
+      // @TODO
         // call end game
         // call pop up to display win?
+        console.log('player won')
     }
   }else{
     r.classList.add('miss')
     previouslySelected.push(selectedCoordinate)
+    var playerSuccess = "OO! Unfortunately you missed! Hopefully next time you'll get a hit!"
     this.setState({
-      previouslySelected: previouslySelected
+      previouslySelected: previouslySelected,
+      success: playerSuccess
     })
   }
   this.checkCpuSuccess(result)
@@ -89,19 +94,24 @@ checkCpuSuccess(result){
   if(index > -1){
     r.classList.add('successfulHit')
     cpuSelected.push(cpuSelectedCoordinate)
+    var cpuSuccess = "Oh no! You've been hit! Send a missile back!"
     this.setState({
       cpuSelected: cpuSelected,
-      cpuHits: hitArray
+      cpuHits: hitArray,
+      success: cpuSuccess
     })
-    if(this.state.hitSpaces.length === 10){
+    if(this.state.cpuHits.length === 10){
+      console.log('cpu won')
         // call end game
         // call pop up to display win?
     }
   }else{
     r.classList.add('miss')
     cpuSelected.push(cpuSelectedCoordinate)
+    var cpuSuccess = "That was a close one! Thankfully you weren't hit! Time to send a missile back!"
     this.setState({
-      cpuSelected: cpuSelected
+      cpuSelected: cpuSelected,
+      success: cpuSuccess
     })
   }
 
@@ -122,6 +132,7 @@ handleChange(e){
       <div className="coordinateSubmitButton">
   <button type="submit" onClick={this.submitMissile.bind(this)} className="submit btn">Submit Missile</button>
   </div>
+  {this.state.playerSuccess}
   </div>
 
     )

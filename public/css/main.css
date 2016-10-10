@@ -39,9 +39,22 @@ clear: both;
 }
 
 .playerSelected{
-  background-color: red;
+  /*ship here*/
+  background-image: url('https://cdn4.iconfinder.com/data/icons/REALVISTA2/transportation/png/400/destroyer.png')
 }
 
 .selectedCoordinate{
-  background-color: blue;
+  /*missile*/
+  background-image: url('https://cdn0.iconfinder.com/data/icons/the-wars/450/missile-512.png')
+
+}
+
+.miss{
+  /*x*/
+  background-image: url('https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png')
+}
+
+.successfulHit{
+  /*explosion*/
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Explosion-155624_icon.svg/2000px-Explosion-155624_icon.svg.png')
 }
