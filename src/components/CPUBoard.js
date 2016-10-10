@@ -49,6 +49,7 @@ addClass(space,e){
       <div className="enemy-map">
       <h3 className="enemy-header"> Enemy map </h3>
           {htmlArray}
+          <InputBox/>
       </div>
     )
   }

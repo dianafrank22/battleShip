@@ -17,13 +17,16 @@ export default class InputBox extends React.Component{
 // either display button to submit all coordinates based state
 // or input box to select cordinate on cpu
 // or text that says wait for cpu selection
-
+handleChange(e){
+// do anything here?
+}
 
   render(){
     return(
       <input
               type="text"
-              value={this.props.selectedCoordinate}
+              value={this.props.selectedCoordinate} placeholder={this.props.selectedCoordinate}
+              onChange={this.handleChange}
             />
     )
 
