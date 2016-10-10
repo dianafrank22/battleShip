@@ -51,11 +51,7 @@ export default class PlayerBoard extends React.Component {
   submitCoordinates(){
  // @TODO get this to work
  // if()
- const coordinates=
- {
-    'coordinates': this.state.playerCoordinates
- }
-
+ const coordinates={ 'coordinates': this.state.playerCoordinates}
     fetch('/api/setShips',{
       method: 'PUT',
       body: coordinates,

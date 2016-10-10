@@ -34,15 +34,15 @@ router.delete('/end', endGame, (req, res) => {
 //
 // // Accepts coordinates for the player’s next move.
 //
-// router.post('/', sendPlayersMove, checkSuccess, (req, res) =>{
-//   res.json({response: res.success})
-// })
+router.post('/missile', sendPlayersMove, getCPUMove, (req, res) =>{
+  res.json({response: res.cpuSelectedCoordinate})
+})
 //
 //
 // // // Returns the coordinates for the CPU’s next move.//
-  router.get('/getCpuMove', getCPUMove,(req, res) =>{
-    res.json({response: res.cpuSelection})
-  })
+  // router.get('/getCpuMove', getCPUMove,(req, res) =>{
+  //   res.json({response: res.cpuSelection})
+  // })
 
   // router.get('/createCpuCoordinates', createCpuCoordinates, (req, res) => {
   //   res.json({response: res.cpuCoordinates});

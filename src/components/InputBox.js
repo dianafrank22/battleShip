@@ -19,10 +19,19 @@ export default class InputBox extends React.Component{
 submitMissile(){
   var status = this.props.status
   if(status === "waiting_for_player_turn"){
-    // send player coordinate here
-    // return cpu choice
-    // call check status
-    console.log(status)
+    fetch('/api/missile',{
+      method: 'POST',
+      body: JSON.stringify(this.props.selectedCoordinate),
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(response =>
+    response.json()).then(result => {
+      // get cpu coordinate
+      // call function to check success
+      console.log(result)
+    })
   }
   // else{
   //   // display error depending on state

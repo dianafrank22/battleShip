@@ -25,19 +25,14 @@ function endGame(req, res, next){
 
 // @TODO
 function setPlayerShips(req, res, next){
-  console.log('in set ships')
-  console.log(req.body)
-  // // parse coordinates here, push into array
   if(req.originalUrl=== '/api/setShips'){
       res.playerCoordinates = req.body
-  //     // update object ?
+  //     // update session object here ?
   }
   next();
 }
 
 function createCpuCoordinates(req, res, next){
-  console.log(req.body)
-  console.log(req.originalUrl)
   var min = Math.ceil(0)
   var max = Math.floor(5)
   var alphabet = ['A', 'B', 'C', 'D', 'E']
@@ -63,18 +58,19 @@ function getCPUMove(req, res, next){
     var letter = alphabet[first]
     var second =Math.floor(Math.random()*(max-min+1))+min;
     var coordinate = letter+second
-    res.cpuSelection = coordinate
+    res.cpuSelectedCoordinate = coordinate
+  }
+  next();
+}
+
+function sendPlayersMove(req, res, next){
+  if(req.originalUrl === '/api/missile'){
+    //update session object here
+    res.playersChoice = req.body
   }
   next();
 }
 
 
-// function setCpuCoorindates(req, res, next){
-//   if(req.query.setCpuShips === 'true'){
-//     res.cpuCoordinates = req.query.coordinates
-//     // update object, make sure this stays hidden
-//   }
-//   next();
-// }
 
-module.exports = {createGame, endGame, setPlayerShips, createCpuCoordinates, getCPUMove}
+module.exports = {createGame, endGame, setPlayerShips, createCpuCoordinates, getCPUMove, sendPlayersMove}
