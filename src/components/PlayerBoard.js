@@ -1,5 +1,8 @@
 import React, { PropTypes, Component } from 'react';
 import {Link} from 'react-router';
+import InputBox from './InputBox'
+import CPUBoard from './CPUBoard'
+
 
 export default class PlayerBoard extends React.Component {
   constructor(props){
@@ -75,6 +78,7 @@ export default class PlayerBoard extends React.Component {
 //@TODO move submit coordinates into component, have input box for sending missiles there as well, display one depending on state?
 
   render(){
+    console.log(this.props.cpuBoard)
     let directions = ""
     if(this.state.status === "waiting_for_coordinates"){
       directions = "Select 10 Coordinates for your BattleShips!"
@@ -96,6 +100,10 @@ export default class PlayerBoard extends React.Component {
       }
     }
     return(
+      <div className="game-container">
+      <div className="enemy board">
+      <CPUBoard cpuBoard={this.props.cpuBoard} status={this.state.status}/>
+      </div>
       <div className="playerContainer">
       <h3> Your map </h3>
       <div className="player-map">
@@ -105,6 +113,7 @@ export default class PlayerBoard extends React.Component {
       {directions}
       </div>
           <button type="submit" onClick={this.submitCoordinates.bind(this)} className="submit btn">Submit Coordinates</button>
+      </div>
       </div>
     )
   }
