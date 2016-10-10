@@ -1,0 +1,43 @@
+.game-container{
+  text-align: center;
+  width: 100vw;
+  /*overflow: hidden;*/
+}
+
+.space{
+  border: black solid 1px;
+  float: left;
+  width: 6vw;
+  height: 6vh;
+}
+
+h3.enemy-header{
+  margin-bottom: 2.5vh;
+}
+
+.enemy-map{
+  width: 35vw;
+  float: left;
+  margin-left: 10vw;
+}
+
+.playerContainer{
+  width: 35vw;
+  float: left;
+  margin-left: 7.5vw;
+}
+
+
+.player-map,
+.direction {
+  margin-top: 2.5vh;
+  margin-bottom: 2.5vh;
+}
+
+.direction{
+clear: both;
+}
+
+.playerSelected{
+  background-color: red;
+}
