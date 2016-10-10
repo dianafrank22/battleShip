@@ -27,7 +27,7 @@ router.put('/setShips', setPlayerShips, createCpuCoordinates, (req, res) => {
 //
 //
 // // end game
-router.delete('/', endGame, (req, res) => {
+router.delete('/end', endGame, (req, res) => {
   res.json({response: res.game})
 })
 //

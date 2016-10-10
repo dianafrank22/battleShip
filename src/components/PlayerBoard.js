@@ -13,6 +13,9 @@ export default class PlayerBoard extends React.Component {
 
 
   chooseCoordinates(space, e){
+    // if length is 10, but want to unclick
+    // refactor so it adds function add class,
+    // else if (players.length === 10, update state addClass and update state)
     if(this.state.status === "waiting_for_coordinates"){
       var playerCoordinates = this.state.playerCoordinates
       var index = playerCoordinates.indexOf(space)
@@ -37,28 +40,24 @@ export default class PlayerBoard extends React.Component {
         }
       }
     }else if(this.state.status ==="waiting_for_player_turn"){
-      // update calue of selected coordinate for attack
-      // tell them to select coordinate on enemy map
-
-    }else{
+      // error handle here, tell them to select coordinate on cpu map
 
     }
-
-
   }
 
   submitCoordinates(){
- // can move this into another component where you submit coordinates
- // checks state
- // if one, creates coordinates, (allows you to click your map)
- // else update directions?
- // have to send coordinates
  // @TODO get this to work
  // if()
+ const coordinates=
+ {
+    'coordinates': this.state.playerCoordinates
+ }
+
     fetch('/api/setShips',{
-      method: 'post',
-      body: JSON.stringify(this.state.playerCoordinates),
+      method: 'PUT',
+      body: coordinates,
       headers: {
+        'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(response =>
@@ -69,19 +68,11 @@ export default class PlayerBoard extends React.Component {
       })
       console.log(result)
     })
-
-    fetch('/api/createCpuCoordinates').then(response => response.json()).then(result => {
-      console.log(result)
-      this.setState({
-        cpuCoordinates: result.response.cpuCoordinates,
-        status: 'waiting_for_player_turn'
-      })
-    })
   }
 
 
 // pass status as prop, into another component and render heading and directions there !
-
+//@TODO move submit coordinates into component, have input box for sending missiles there as well, display one depending on state?
 
   render(){
     let directions = ""

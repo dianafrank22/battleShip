@@ -26,10 +26,7 @@ function endGame(req, res, next){
 // @TODO
 function setPlayerShips(req, res, next){
   console.log('in set ships')
-  console.log(req)
-  console.log(req-body)
-  console.log(req.originalUrl)
-  console.log(req.query)
+  console.log(req.body)
   // // parse coordinates here, push into array
   if(req.originalUrl=== '/api/setShips'){
       res.playerCoordinates = req.body
@@ -39,6 +36,8 @@ function setPlayerShips(req, res, next){
 }
 
 function createCpuCoordinates(req, res, next){
+  console.log(req.body)
+  console.log(req.originalUrl)
   var min = Math.ceil(0)
   var max = Math.floor(5)
   var alphabet = ['A', 'B', 'C', 'D', 'E']
