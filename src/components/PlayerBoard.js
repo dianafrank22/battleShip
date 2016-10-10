@@ -74,7 +74,6 @@ export default class PlayerBoard extends React.Component {
 //@TODO move submit coordinates into component, have input box for sending missiles there as well, display one depending on state?
 
   render(){
-    console.log(this.props.cpuBoard)
     let directions = ""
     if(this.state.status === "waiting_for_coordinates"){
       directions = "Select 10 Coordinates for your BattleShips!"

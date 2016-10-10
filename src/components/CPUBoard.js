@@ -21,14 +21,14 @@ export default class CPUBoard extends React.Component {
     }
   }
 
-addClass(space,e){
-  var id = e.target.id
-  var el = document.getElementById(id)
-  el.classList.add('selectedCoordinate')
-  this.setState({
-    selectedCoordinate: space
-  })
-}
+    addClass(space,e){
+      var id = e.target.id
+      var el = document.getElementById(id)
+      el.classList.add('selectedCoordinate')
+      this.setState({
+        selectedCoordinate: space
+      })
+    }
 
 
 
