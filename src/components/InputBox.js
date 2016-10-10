@@ -6,7 +6,8 @@ export default class InputBox extends React.Component{
     super();
     this.state ={
       previouslySelected: [],
-      hitSpaces: []
+      hitSpaces: [],
+      cpuSelectedCoordinate: undefined
     }
     this.handleChange = this.handleChange.bind(this);
   }
@@ -28,8 +29,10 @@ submitMissile(){
       }
     }).then(response =>
     response.json()).then(result => {
+      this.checkSuccess(result)
       // get cpu coordinate
       // call function to check success
+      // cpuSelectedCoordinate
       console.log(result)
     })
   }
@@ -37,6 +40,18 @@ submitMissile(){
   //   // display error depending on state
   // }
 
+}
+
+checkSuccess(result){
+  this.setState({
+    cpuSelectedCoordinate: result.response.cpuSelectedCoordinate
+  })
+  console.log('in check success')
+  console.log(this.state.cpuSelectedCoordinate)
+  console.log(this.props.selectedCoordinate)
+  console.log(this.props.cpuCoordinates)
+  console.log(this.props.playerCoordinates)
+  // compare selected ones with the array of coordinates
 }
 
 handleChange(e){

@@ -49,7 +49,8 @@ addClass(space,e){
       <div className="enemy-map">
       <h3 className="enemy-header"> Enemy map </h3>
           {htmlArray}
-          <InputBox selectedCoordinate={this.state.selectedCoordinate} status={this.props.status}/>
+          <InputBox selectedCoordinate={this.state.selectedCoordinate} status={this.props.status} cpuCoordinates={this.props.cpuCoordinates}
+          playerCoordinates={this.props.playerCoordinates}/>
       </div>
     )
   }

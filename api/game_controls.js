@@ -50,7 +50,7 @@ function createCpuCoordinates(req, res, next){
 }
 
 function getCPUMove(req, res, next){
-  if(req.originalUrl === '/api/getCpuMove'){
+  if(req.originalUrl === '/api/missile'){
     var min = Math.ceil(0)
     var max = Math.floor(5)
     var alphabet = ['A', 'B', 'C', 'D', 'E']

@@ -16,6 +16,7 @@ export default class PlayerBoard extends React.Component {
 
 
   chooseCoordinates(space, e){
+    // @TODO
     // if length is 10, but want to unclick
     // refactor so it adds function add class,
     // else if (players.length === 10, update state addClass and update state)
@@ -62,10 +63,9 @@ export default class PlayerBoard extends React.Component {
     }).then(response =>
     response.json()).then(result => {
       this.setState({
-        cpuCoordinates: result.response.cpuCoordinates,
+        cpuCoordinates: result.response,
         status: 'waiting_for_player_turn'
       })
-      console.log(result)
     })
   }
 
@@ -98,7 +98,7 @@ export default class PlayerBoard extends React.Component {
     return(
       <div className="game-container">
       <div className="enemy board">
-      <CPUBoard cpuBoard={this.props.cpuBoard} status={this.state.status}/>
+      <CPUBoard cpuBoard={this.props.cpuBoard} status={this.state.status} cpuCoordinates={this.state.cpuCoordinates} playerCoordinates={this.state.playerCoordinates}/>
       </div>
       <div className="playerContainer">
       <h3> Your map </h3>
