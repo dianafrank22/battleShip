@@ -15,6 +15,8 @@ export default class PlayerBoard extends React.Component {
   }
 
 
+// update count for ships left to place
+// if they try to click button before that, it displays error message
   chooseCoordinates(space, e){
     // @TODO
     // if length is 10, but want to unclick
@@ -44,6 +46,7 @@ export default class PlayerBoard extends React.Component {
         }
       }
     }else if(this.state.status ==="waiting_for_player_turn"){
+      // @TODO
       // error handle here, tell them to select coordinate on cpu map
 
     }
@@ -62,6 +65,7 @@ export default class PlayerBoard extends React.Component {
       }
     }).then(response =>
     response.json()).then(result => {
+      console.log(result.response)
       this.setState({
         cpuCoordinates: result.response,
         status: 'waiting_for_player_turn'

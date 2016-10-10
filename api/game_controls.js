@@ -34,11 +34,11 @@ function setPlayerShips(req, res, next){
 
 function createCpuCoordinates(req, res, next){
   var min = Math.ceil(0)
-  var max = Math.floor(5)
+  var max = Math.floor(4)
   var alphabet = ['A', 'B', 'C', 'D', 'E']
   var coordinates =[]
   for(var i=0; i<11; i++){
-    var first = Math.floor(Math.random()*(4-min+1))+min;
+    var first = Math.floor(Math.random()*(max-min+1))+min;
     var letter = alphabet[first]
     var second =Math.floor(Math.random()*(max-min+1))+min;
     var coordinate = letter+second
@@ -52,7 +52,7 @@ function createCpuCoordinates(req, res, next){
 function getCPUMove(req, res, next){
   if(req.originalUrl === '/api/missile'){
     var min = Math.ceil(0)
-    var max = Math.floor(5)
+    var max = Math.floor(4)
     var alphabet = ['A', 'B', 'C', 'D', 'E']
     var first = Math.floor(Math.random()*(4-min+1))+min;
     var letter = alphabet[first]

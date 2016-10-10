@@ -15,6 +15,9 @@ export default class InputBox extends React.Component{
     this.handleChange = this.handleChange.bind(this);
   }
 
+
+  // @TODO
+
 // need to check if in previously selected, can't click those
   // can't select depending on state
 // either display button to submit all coordinates based state
@@ -22,6 +25,7 @@ export default class InputBox extends React.Component{
 // or text that says wait for cpu selection
 // need to move cpu board to be rendered in playboard to pass props to
 // need to send cpuSelected here, that way cpu can't pick same one
+// update session with cpu selection, that way it cant select the same ones
 submitMissile(){
   var status = this.props.status
   if(status === "waiting_for_player_turn"){
@@ -132,7 +136,7 @@ handleChange(e){
       <div className="coordinateSubmitButton">
   <button type="submit" onClick={this.submitMissile.bind(this)} className="submit btn">Submit Missile</button>
   </div>
-  {this.state.playerSuccess}
+  {this.state.success}
   </div>
 
     )
