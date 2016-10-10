@@ -41,3 +41,7 @@ clear: both;
 .playerSelected{
   background-color: red;
 }
+
+.selectedCoordinate{
+  background-color: blue;
+}
