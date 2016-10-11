@@ -1,4 +1,3 @@
-"use strict"
 const BattleShip = require('./battleship');
 
 function createGame(req, res, next){
