@@ -1,5 +1,5 @@
-const router       = require('express').Router();
-const game = require('../api/game_controls')
+const router   = require('express').Router();
+const game     = require('../api/game_controls')
 
 // @TODO
 // check for game in session first?

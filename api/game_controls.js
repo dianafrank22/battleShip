@@ -1,4 +1,4 @@
-const BattleShip = require('./Battleship');
+const BattleShip = require('./battleship');
 
 function createGame(req, res, next){
   if(req.originalUrl === '/api/start'){
