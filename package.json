@@ -4,10 +4,12 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
     "watch": "webpack -d --progress --watch",
     "prod": "NODE_ENV=production node server.js",
-    "build": "webpack --config ./webpack.prod.config.js --progress --colors"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "eject": "react-scripts eject"
+
   },
   "author": "Diana Frank",
   "license": "ISC",
@@ -15,6 +17,7 @@
     "express": "^4.14.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-scripts": "^0.6.1",
     "webpack-hot-middleware": "^2.13.0"
   },
   "devDependencies": {
