@@ -19,6 +19,6 @@ Defend the galaxy by destorying all of your opponents ships!!
 
 
 #### Things I want to do #####
-1. add highscores using postgresql with pg-promise
+1. add highscores using postgresql with [pg-promise](https://www.npmjs.com/package/pg-promise)
 2. add a timer using react timer node module
 3. add scoreboards 
