@@ -17,7 +17,7 @@ export default class Main extends React.Component{
 
   endGame(){
     fetch('/api/end',{
-        method: 'DELETE',
+     method: 'DELETE',
     }).then(response => response.json()).then(result => {
       console.log(result)
     })

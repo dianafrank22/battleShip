@@ -57,7 +57,7 @@ export default class PlayerBoard extends React.Component {
  // if()
  const coordinates={ 'coordinates': this.state.playerCoordinates}
     fetch('/api/setShips',{
-      method: 'PUT',
+      method: 'post',
       body: coordinates,
       headers: {
         'Accept': 'application/json',
@@ -77,6 +77,7 @@ export default class PlayerBoard extends React.Component {
 // pass status as prop, into another component and render heading and directions there !
 //@TODO move submit coordinates into component, have input box for sending missiles there as well, display one depending on state?
 // @TODO check divs here (which are in use and which you would need)
+// @TODO dont allow submit coordinates until slected apis = 10
 
   render(){
     let directions = ""

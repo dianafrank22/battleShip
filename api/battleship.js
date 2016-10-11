@@ -6,7 +6,6 @@ class BattleShip{
     this.playerCoordinates = [];
     this.playerSelections=[];
     this.cpuSelections =[];
-    this.state = "";
     this.createBoards();
   }
 

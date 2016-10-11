@@ -3,9 +3,13 @@ const BattleShip = require('./Battleship');
 function createGame(req, res, next){
   if(req.originalUrl === '/api/start'){
     const game = new BattleShip();
+    console.log(game)
     res.game = game
-    req.session.game = res.game
-    console.log(req.session.game)
+    req.session['game'] = res.game
+    req.session.save(function(err){
+      console.log('session saved');
+      console.log("Session Before Redirect: ", req.session);
+    })
   }
   next();
 }
@@ -22,9 +26,12 @@ function endGame(req, res, next){
 
 
 function setPlayerShips(req, res, next){
+  console.log(req)
+  console.log(req.session)
+  console.log(req.session.game)
   if(req.originalUrl=== '/api/setShips'){
       res.playerCoordinates = req.body
-      req.session.game.playerCoordinates = res.playerCoordinates
+      req.session.game.BattleShip.playerCoordinates = res.playerCoordinates
   }
   next();
 }

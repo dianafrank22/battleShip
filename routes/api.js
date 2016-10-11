@@ -14,24 +14,24 @@ const {createGame,
 
 // create a game
 router.get('/start', createGame, (req, res) => {
-  res.json({response: res.game});
+  res.status(200).json({response: res.game});
 })
 
 
 // update players coordinates
-router.put('/setShips', setPlayerShips, createCpuCoordinates, (req, res) => {
-  res.json({response: res.cpuCoordinates})
+router.post('/setShips', setPlayerShips, createCpuCoordinates, (req, res) => {
+  res.status(200).json({response: res.cpuCoordinates})
   // set up coordinates, players div should be updated with divs
 })
 
 // end game
 router.delete('/end', endGame, (req, res) => {
-  res.json({response: res.game})
+  res.status(200).json({response: res.game})
 })
 
 // // Accepts coordinates for the player’s next move.
 router.post('/missile', sendPlayersMove, getCPUMove, (req, res) =>{
-  res.json({response: res.cpuSelectedCoordinate})
+  res.status(200).json({response: res.cpuSelectedCoordinate})
 })
 
 

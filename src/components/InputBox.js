@@ -60,7 +60,7 @@ checkPlayerSuccess(result){
   var r = document.getElementById('cpu-space'+space)
   r.classList.remove('playerSelected')
   if(index > -1){
-    r.classList.add('successfulHit')
+    r.classList.add('successfulHit clicked')
     previouslySelected.push(selectedCoordinate)
     var playerSuccess = "Congrats!! You hit one of their ships! Time for their move!"
     this.setState({
@@ -75,7 +75,7 @@ checkPlayerSuccess(result){
         console.log('player won')
     }
   }else{
-    r.classList.add('miss')
+    r.classList.add('miss clicked')
     previouslySelected.push(selectedCoordinate)
     var playerSuccess = "OO! Unfortunately you missed! Hopefully next time you'll get a hit!"
     this.setState({

@@ -21,10 +21,7 @@ export default class BattleShipPage extends React.Component {
       })
     })
   }
-
-  // @TODO can create header, and move directions there
-  // select div on enemy field, updates input box, check selected coordinates, if in there, have to pick different one (shows error message)
-
+  
   render(){
     return(
       <div className="game-container">

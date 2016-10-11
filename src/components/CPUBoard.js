@@ -8,23 +8,30 @@ export default class CPUBoard extends React.Component {
     this.state ={
       selectedCoordinate: undefined
     }
+    this.message: false
   }
 
   selectCoordinate(space, e){
-    if(this.state.selectedCoordinate !== undefined){
-      var remove = this.state.selectedCoordinate
-      var r = document.getElementById('cpu-space'+remove)
-      r.classList.remove('selectedCoordinate')
-      this.addClass(space, e)
+    var id = e.target.id
+    var el = document.getElementById(id)
+    if(el.classList.contains('clicked')){
+      this.message = "This space has previously been selected, please choose another one!"
+      // error handle telling to select new space
     }else{
-      this.addClass(space, e)
+      if(this.state.selectedCoordinate !== undefined){
+        var remove = this.state.selectedCoordinate
+        var r = document.getElementById('cpu-space'+remove)
+        r.classList.remove('selectedCoordinate')
+        el.classList.add('selectedCoordinate')
+        this.updateSelectedCoordinate(space)
+      }else{
+        el.classList.add('selectedCoordinate')
+        this.updateSelectedCoordinate(space)
+      }
     }
   }
 
-    addClass(space,e){
-      var id = e.target.id
-      var el = document.getElementById(id)
-      el.classList.add('selectedCoordinate')
+  updateSelectedCoordinate(space,e){
       this.setState({
         selectedCoordinate: space
       })
@@ -51,6 +58,7 @@ export default class CPUBoard extends React.Component {
           {htmlArray}
           <InputBox selectedCoordinate={this.state.selectedCoordinate} status={this.props.status} cpuCoordinates={this.props.cpuCoordinates}
           playerCoordinates={this.props.playerCoordinates}/>
+          {this.message ? this.message : null}
       </div>
     )
   }
