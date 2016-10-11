@@ -1,13 +1,5 @@
 const router       = require('express').Router();
-const {createGame,
-      endGame,
-      setPlayerShips,
-      createCpuCoordinates,
-      setCpuCoorindates,
-      sendPlayersMove,
-      checkSuccess,
-      returnSuccessStatus,
-      getCPUMove}  = require('../api/game_controls')
+const {createGame, endGame, setPlayerShips, createCpuCoordinates, setCpuCoorindates, sendPlayersMove, checkSuccess,returnSuccessStatus, getCPUMove}  = require('../api/game_controls')
 
 // @TODO
 // check for game in session first?
@@ -21,7 +13,6 @@ router.get('/start', createGame, (req, res) => {
 // update players coordinates
 router.put('/setShips', setPlayerShips, createCpuCoordinates, (req, res) => {
   res.status(200).json({response: res.cpuCoordinates})
-
 })
 
 // end game
