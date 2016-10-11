@@ -7,7 +7,7 @@
     "start": "node server.js",
     "watch": "webpack -d --progress --watch",
     "prod": "NODE_ENV=production node server.js",
-    "postinstall": "webpack -p",
+    "postinstall": "webpack -d",
     "build": "webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "author": "Diana Frank",
