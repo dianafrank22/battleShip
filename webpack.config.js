@@ -11,12 +11,11 @@ const PUBLIC     = path.resolve(__dirname, 'public')
 module.exports = {
 
   entry:{
-  'webpack-hot-middleware/client',
   javascript: `${INPUT_DIR}/app.js`
 },
   output: {
     path: OUTPUT_DIR,
-    filename: "/[name].js",
+    filename: "/bundle.js",
   },
   watch: true,
   devtool: 'eval-source-map',
@@ -30,8 +29,6 @@ module.exports = {
     new ExtractTextPlugin(`${PUBLIC}/css/main.css`, {
       allChunks: true
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
   ],
   module:{
     include: path.join(__dirname, 'src'),
