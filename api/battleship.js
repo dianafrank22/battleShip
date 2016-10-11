@@ -1,3 +1,4 @@
+"strict"
 class BattleShip{
   constructor(){
     this.cpuBoard = [];
