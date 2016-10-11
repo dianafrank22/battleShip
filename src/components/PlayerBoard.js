@@ -1,9 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import {Link} from 'react-router';
 import InputBox from './InputBox'
 import CPUBoard from './CPUBoard'
-import DropDown from 'react-timer'
-
 
 export default class PlayerBoard extends React.Component {
   constructor(props){
