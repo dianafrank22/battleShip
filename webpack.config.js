@@ -11,7 +11,7 @@ const PUBLIC     = path.resolve(__dirname, 'public')
 module.exports = {
 
   entry:{
-  javascript: `${INPUT_DIR}/Index.js`
+  javascript: `${INPUT_DIR}/index.js`
 },
   output: {
     path: __dirname,
