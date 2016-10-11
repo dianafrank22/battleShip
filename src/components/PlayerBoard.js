@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import {Link} from 'react-router';
 import InputBox from './InputBox'
 import CPUBoard from './CPUBoard'
+import DropDown from 'react-timer'
 
 
 export default class PlayerBoard extends React.Component {
@@ -68,7 +69,6 @@ updateShipsLeft(num){
 }
 
   submitCoordinates(){
- // @TODO get this to work
  if(this.state.playerCoordinates.length === 10){
  const coordinates={ 'coordinates': this.state.playerCoordinates}
     fetch('/api/setShips',{
@@ -98,10 +98,13 @@ updateShipsLeft(num){
     let directions = ""
     let ships = this.state.shipsLeft
     if(this.state.status === "waiting_for_coordinates"){
+      var show = false
       directions = "Select Coordinates for your BattleShips!  " + ships+" ships left!"
     }else if(this.state.status === "waiting_for_player_turn"){
+      var show = true
       directions = "Select the Coordinate to Attack on Enemy Map"
     }else{
+      var show = true
       directions ="Submit your positions!"
     }
     let spaceHtml = "";
@@ -129,8 +132,9 @@ updateShipsLeft(num){
       <div className="direction">
       {directions}
       </div>
-      {this.state.message ? this.state.message : null}
-          <button type="submit" onClick={this.submitCoordinates.bind(this)} className="submit btn">Submit Coordinates</button>
+      {this.state.message ? this.state.message : null} <br/>
+      {show ? null :  <button type="submit" onClick={this.submitCoordinates.bind(this)} className="submit btn">Submit Coordinates</button> }
+
       </div>
       </div>
     )

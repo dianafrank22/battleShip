@@ -58,7 +58,7 @@ export default class CPUBoard extends React.Component {
       <div className="enemy-map">
       <h3 className="enemy-header"> Enemy map </h3>
           {htmlArray}
-          <InputBox selectedCoordinate={this.state.selectedCoordinate} status={this.props.status} cpuCoordinates={this.props.cpuCoordinates}
+          <InputBox className="coordinateInput" selectedCoordinate={this.state.selectedCoordinate} status={this.props.status} cpuCoordinates={this.props.cpuCoordinates}
           playerCoordinates={this.props.playerCoordinates}/>
           {this.state.message ? this.state.message : null}
       </div>

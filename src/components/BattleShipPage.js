@@ -21,11 +21,11 @@ export default class BattleShipPage extends React.Component {
       })
     })
   }
-  
+
+
   render(){
     return(
       <div className="game-container">
-      <h2> BATTLESHIP</h2>
       <div className="player board">
       <PlayerBoard playerBoard={this.state.playerBoard} cpuBoard={this.state.cpuBoard}/>
       </div>

@@ -34,7 +34,7 @@ function createCpuCoordinates(req, res, next){
   var max = Math.floor(4)
   var alphabet = ['A', 'B', 'C', 'D', 'E']
   var coordinates =[]
-  for(var i=0; i<11){
+  for(var i=0; i<11; i){
     var first = Math.floor(Math.random()*(max-min+1))+min;
     var letter = alphabet[first]
     var second =Math.floor(Math.random()*(max-min+1))+min;

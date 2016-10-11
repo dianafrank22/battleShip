@@ -10,9 +10,7 @@ export default class Main extends React.Component{
 
   // @TODO make score board component
   // make timer component on bottom
-  // make button component, start game, end game
-  // count down
-  // header component?
+
 
 
   endGame(){
@@ -26,6 +24,7 @@ export default class Main extends React.Component{
   render(){
     return(
       <div className="game-board">
+      <h2 className="title"> Battleship</h2>
       <BattleShip/>
       <button type="submit" onClick={this.endGame.bind(this)} className="endGame btn">End Game</button>
       </div>

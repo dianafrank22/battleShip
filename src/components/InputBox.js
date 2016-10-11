@@ -53,18 +53,19 @@ checkPlayerSuccess(result){
     r.classList.add('successfulHit')
     r.classList.add('clicked')
     previouslySelected.push(selectedCoordinate)
-    var success = "Congrats!! You hit one of their ships!"
-    this.setState({
-      previouslySelected: previouslySelected,
-      hitSpaces: hitArray,
-      playerSuccess: success
-    })
-    if(this.state.hitSpaces.length === 10){
+    hitArray.push(selectedCoordinate)
+    if(hitArray.length === 10){
       this.endGame();
-      // @TODO need to fix so that this works
       var success = "CONGRATS!!! You have just defeated your oponent!!!"
       this.setState({
           success: success
+      })
+    }else{
+      var success = "Congrats!! You hit one of their ships!"
+      this.setState({
+        previouslySelected: previouslySelected,
+        hitSpaces: hitArray,
+        playerSuccess: success
       })
     }
   }else{
@@ -92,19 +93,19 @@ checkCpuSuccess(result){
   if(index > -1){
     r.classList.add('successfulHit')
     cpuSelected.push(cpuSelectedCoordinate)
-    var success = "Oh no! You've been hit! Send a missile back!"
-    this.setState({
-      cpuSelected: cpuSelected,
-      cpuHits: hitArray,
-      cpuSuccess: success
-      })
-      // @TODO fix this
-    if(this.state.cpuHits.length === 10){
+    if(cpuSelected.length === 10){
       this.endGame();
       var success = "All of your sinks have been sunk! You have lost your fleet"
       this.setState({
         cpuSuccess: success
       })
+    }else{
+      var success = "Oh no! You've been hit! Send a missile back!"
+      this.setState({
+        cpuSelected: cpuSelected,
+        cpuHits: hitArray,
+        cpuSuccess: success
+        })
     }
   }else{
     r.classList.add('miss')
@@ -122,7 +123,11 @@ endGame(){
    method: 'DELETE',
   }).then(response => response.json()).then(result => {
     console.log(result)
-    // @TODO display end of game
+    var success = "GAME OVER"
+    this.setState({
+      playerSuccess: "",
+      cpuSuccess: success
+    })
   })
 }
 
@@ -132,13 +137,11 @@ handleChange(e){
   render(){
     return(
       <div className="inputBox">
-      <input
-              type="text"
-              value={this.props.selectedCoordinate} placeholder={this.props.selectedCoordinate}
-              onChange={this.handleChange}
-            />
+      <input type="text" value={this.props.selectedCoordinate} placeholder={this.props.selectedCoordinate} onChange={this.handleChange} />
       <div className="coordinateSubmitButton">
-  <button type="submit" onClick={this.submitMissile.bind(this)} className="submit btn">Submit Missile</button>
+  <button type="submit" onClick={this.submitMissile.bind(this)} className="shootBtn"><p className="btnName">Shoot</p></button> <br/>
+  </div>
+  <div className="successMessages">
   {this.state.playerSuccess ? this.state.playerSuccess : null} <br/>
   {this.state.cpuSuccess ? this.state.cpuSuccess : null}
   </div>
