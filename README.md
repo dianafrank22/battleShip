@@ -17,3 +17,8 @@ Defend the galaxy by destorying all of your opponents ships!!
 5. [Express-Sessions](https://www.npmjs.com/package/express-session) - used to store game object server side
 6. Heroku - for deployment
 
+
+#### Things I want to do #####
+1. add highscores using postgresql with pg-promise
+2. add a timer using react timer node module
+3. add scoreboards 
