@@ -15,7 +15,7 @@ export default class CPUBoard extends React.Component {
     var id = e.target.id
     var el = document.getElementById(id)
     if(el.classList.contains('clicked')){
-      message = "This space has previously been selected, please choose another one!"
+      var message = "This space has previously been selected, please choose another one!"
       this.setState({
         message: message
       })
