@@ -14,7 +14,8 @@ module.exports = {
   javascript: `${INPUT_DIR}/app.js`
 },
   output: {
-    path: OUTPUT_DIR,
+    path: __dirname,
+    publicPath: '/dist',
     filename: "/bundle.js",
   },
   watch: true,
@@ -35,7 +36,8 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loaders: ['babel']
+      loaders: ['babel-loader'],
+      query: {presets: ['es2015', 'react']}
     },
     { test: /\html$/, loader: "file?name=[name].[ext]" },
     {

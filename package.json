@@ -5,8 +5,9 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack -d --progress --watch",
+    "prod": "NODE_ENV=production node server.js",
+    "postinstall": "webpack -p",
     "build": "webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "author": "Diana Frank",
