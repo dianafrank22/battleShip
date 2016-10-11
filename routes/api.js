@@ -1,5 +1,5 @@
 const router       = require('express').Router();
-const {createGame, endGame, setPlayerShips, createCpuCoordinates, setCpuCoorindates, sendPlayersMove, checkSuccess,returnSuccessStatus, getCPUMove}  = require('../api/game_controls')
+const { createGame, endGame, setPlayerShips, createCpuCoordinates, setCpuCoorindates, sendPlayersMove, checkSuccess,returnSuccessStatus, getCPUMove }  = require('../api/game_controls')
 
 // @TODO
 // check for game in session first?
