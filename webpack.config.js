@@ -11,12 +11,13 @@ const PUBLIC     = path.resolve(__dirname, 'public')
 module.exports = {
 
   entry:{
-  javascript: `${INPUT_DIR}/index.js`
+  javascript: `${INPUT_DIR}/app.js`,
+  html: `${INPUT_DIR}/index.html`,
+css: `${PUBLIC}/css/main.css`
 },
   output: {
-    path: __dirname,
-    publicPath: '/dist',
-    filename: "/bundle.js",
+    path: OUTPUT_DIR,
+    filename: "/[name].js",
   },
   watch: true,
   devtool: 'eval-source-map',
@@ -36,8 +37,7 @@ module.exports = {
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
-      loaders: ['babel-loader'],
-      query: {presets: ['es2015', 'react']}
+      loaders: ['babel']
     },
     { test: /\html$/, loader: "file?name=[name].[ext]" },
     {
