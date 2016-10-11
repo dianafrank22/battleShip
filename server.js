@@ -13,7 +13,7 @@ const port       = process.env.PORT || 3000
 
 
 
-app.use(express.static(path.join(__dirname, '/')));
+app.use(express.static(path.join(__dirname, '/dist')));
 app.use(logger('dev'))
 // app.use(bodyParser.json());
 
