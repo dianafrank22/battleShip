@@ -2,6 +2,11 @@ class BattleShip{
   constructor(){
     this.cpuBoard = [];
     this.playerBoard = [];
+    this.cpuCoordinates = [];
+    this.playerCoordinates = [];
+    this.playerSelections=[];
+    this.cpuSelections =[];
+    this.state = "";
     this.createBoards();
   }
 

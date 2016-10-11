@@ -76,6 +76,7 @@ export default class PlayerBoard extends React.Component {
 
 // pass status as prop, into another component and render heading and directions there !
 //@TODO move submit coordinates into component, have input box for sending missiles there as well, display one depending on state?
+// @TODO check divs here (which are in use and which you would need)
 
   render(){
     let directions = ""
