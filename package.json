@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=production node server.js",
+    "start": "node server.js",
     "watch": "webpack -d --progress --watch",
     "prod": "NODE_ENV=production node server.js",
     "build": "webpack -d --progress --colors"
