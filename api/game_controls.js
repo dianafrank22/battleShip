@@ -39,7 +39,8 @@ function createCpuCoordinates(req, res, next){
     var letter = alphabet[first]
     var second =Math.floor(Math.random()*(max-min+1))+min;
     var coordinate = letter+second
-    if(coordinates.includes(coordinate)){
+    var id = coordinates.indexOf(coordinate)
+    if(id >= 0){
       i = i
     }else{
       coordinates.push(coordinate)
@@ -62,7 +63,8 @@ function getCPUMove(req, res, next){
       var second =Math.floor(Math.random()*(max-min+1))+min;
       var coordinate = letter+second
       var previouslySelected = req.body.cpuSelected
-    if(previouslySelected.includes(coordinate)){
+      var id = previouslySelected.indexOf(coordinate)
+    if(id >= 0){
       getCPUMove(req, res, next);
     }else{
       res.cpuSelectedCoordinate = coordinate

@@ -88,7 +88,8 @@ clear: both;
 
 .miss{
   /*x*/
-  background: url('https://cdn4.iconfinder.com/data/icons/geomicons/32/672366-x-128.png');
+  background: url('http://www.iconsdb.com/icons/preview/white/x-mark-xxl.png');
+  background-color: black;
   background-repeat: no-repeat;
   background-size: contain;
 }
