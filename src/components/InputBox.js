@@ -10,25 +10,28 @@ export default class InputBox extends React.Component{
       cpuSelectedCoordinate: undefined,
       cpuHits: [],
       cpuSelected: [],
-      success = false;
+      success: false
     }
     this.handleChange = this.handleChange.bind(this);
 
   }
 
-
+// @TODO
 submitMissile(){
   var status = this.props.status
+  var info = {'selectedCoordinate': this.props.selectedCoordinate, 'cpuSelected': this.props.cpuSelected}
   if(status === "waiting_for_player_turn"){
     fetch('/api/missile',{
       method: 'POST',
-      body: JSON.stringify(this.props.selectedCoordinate),
+      body: JSON.stringify(info),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(response =>
     response.json()).then(result => {
+      console.log('got result back')
+      console.log(result)
       this.setState({
         cpuSelectedCoordinate: result.response
       })
@@ -39,16 +42,22 @@ submitMissile(){
 }
 
 checkPlayerSuccess(result){
+  console.log('checkPlayerSuccess')
   var cpuCoordinates = this.props.cpuCoordinates
+  console.log(cpuCoordinates)
   var selectedCoordinate = this.props.selectedCoordinate
+  console.log(selectedCoordinate)
   var index = cpuCoordinates.indexOf(selectedCoordinate)
+  console.log(index)
   var space = this.props.selectedCoordinate
   var previouslySelected = this.state.previouslySelected
   var hitArray = this.state.hitSpaces
   var r = document.getElementById('cpu-space'+space)
   r.classList.remove('playerSelected')
   if(index > -1){
-    r.classList.add('successfulHit clicked')
+    console.log('hit')
+    r.classList.add('successfulHit')
+    r.classList.add('clicked')
     previouslySelected.push(selectedCoordinate)
     success = "Congrats!! You hit one of their ships! Time for their move!"
     this.setState({
@@ -57,16 +66,16 @@ checkPlayerSuccess(result){
       success: success
     })
     if(this.state.hitSpaces.length === 10){
-      // @TODO
       this.endGame();
       success = "CONGRATS!!! You have just defeated your oponent!!!"
-        console.log('player won')
       this.setState({
           success: success
       })
     }
   }else{
-    r.classList.add('miss clicked')
+    console.log('miss')
+    r.classList.add('miss')
+    r.classList.add("clicked")
     previouslySelected.push(selectedCoordinate)
     success = "OO! Unfortunately you missed! Hopefully next time you'll get a hit!"
     this.setState({
@@ -78,11 +87,14 @@ checkPlayerSuccess(result){
 }
 
 checkCpuSuccess(result){
+  console.log('in checkCpuSuccess')
+  console.log(this.state.success)
   var playerCoordinates = this.props.playerCoordinates
   var cpuSelectedCoordinate = this.state.cpuSelectedCoordinate
   var index = playerCoordinates.indexOf(cpuSelectedCoordinate)
   var space = this.state.cpuSelectedCoordinate
   var cpuSelected = this.state.cpuSelected
+  console.log(cpuSelected)
   var hitArray = this.state.cpuHits
   var r = document.getElementById('player-space'+space)
   r.classList.remove('selectedCoordinate')
@@ -95,6 +107,8 @@ checkCpuSuccess(result){
       cpuHits: hitArray,
       success: success
       })
+      console.log(this.state.cpuSelected)
+
     if(this.state.cpuHits.length === 10){
       this.endGame();
       success = "All of your sinks have been sunk! You have lost your fleet"
@@ -118,11 +132,11 @@ endGame(){
    method: 'DELETE',
   }).then(response => response.json()).then(result => {
     console.log(result)
+    // @TODO display end of game
   })
 }
 
 handleChange(e){
-// do anything here?
 }
 
   render(){

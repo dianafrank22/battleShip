@@ -19,9 +19,9 @@ router.get('/start', createGame, (req, res) => {
 
 
 // update players coordinates
-router.post('/setShips', setPlayerShips, createCpuCoordinates, (req, res) => {
+router.put('/setShips', setPlayerShips, createCpuCoordinates, (req, res) => {
   res.status(200).json({response: res.cpuCoordinates})
-  // set up coordinates, players div should be updated with divs
+
 })
 
 // end game
@@ -31,7 +31,8 @@ router.delete('/end', endGame, (req, res) => {
 
 // // Accepts coordinates for the player’s next move.
 router.post('/missile', sendPlayersMove, getCPUMove, (req, res) =>{
-  res.status(200).json({response: res.cpuSelectedCoordinate})
+  console.log(res.cpuSelectedCoordinate)
+  res.json({response: res.cpuSelectedCoordinate})
 })
 
 

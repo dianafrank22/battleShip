@@ -7,7 +7,7 @@ export default class CPUBoard extends React.Component {
     super(props);
     this.state ={
       selectedCoordinate: undefined,
-      message= false
+      message: false
     }
   }
 
@@ -19,7 +19,6 @@ export default class CPUBoard extends React.Component {
       this.setState({
         message: message
       })
-      // error handle telling to select new space
     }else{
       if(this.state.selectedCoordinate !== undefined){
         var remove = this.state.selectedCoordinate

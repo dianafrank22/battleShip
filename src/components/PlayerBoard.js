@@ -69,21 +69,18 @@ updateShipsLeft(num){
 
   submitCoordinates(){
  // @TODO get this to work
- console.log(this.state.playerCoordinates)
- console.log(this.state.playerCoordinates.length)
  if(this.state.playerCoordinates.length === 10){
-   console.log('long enough')
  const coordinates={ 'coordinates': this.state.playerCoordinates}
     fetch('/api/setShips',{
-      method: 'post',
-      body: coordinates,
+      method: 'put',
+      body: JSON.stringify(coordinates),
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }
     }).then(response =>
     response.json()).then(result => {
-      console.log(result.response)
+      console.log(result)
       this.setState({
         cpuCoordinates: result.response,
         status: 'waiting_for_player_turn'
@@ -93,17 +90,10 @@ updateShipsLeft(num){
   this.setState({
     message: "Please place your whole fleet before you submit your coordinates"
   })
-  console.log('not long enough')
+}
 
 }
 
-  }
-
-
-// pass status as prop, into another component and render heading and directions there !
-//@TODO move submit coordinates into component, have input box for sending missiles there as well, display one depending on state?
-// @TODO check divs here (which are in use and which you would need)
-// @TODO dont allow submit coordinates until slected apis = 10
 
   render(){
     let directions = ""

@@ -2,7 +2,6 @@ const logger     = require('morgan');
 const express    = require('express');
 const bodyParser = require('body-parser');
 const session    = require('express-session');
-const cookieParser = require('cookie-parser');
 const path       = require('path');
 const apiRoute   = require('./routes/api');
 const webpack    = require('webpack');
@@ -18,17 +17,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(logger('dev'))
 // app.use(bodyParser.json());
 
-
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use(cookieParser("sdd", {signed: true}))
+app.use(bodyParser.urlencoded({ extended: true }));
 // https://github.com/expressjs/session
 app.use(session({
+  saveUnitiliazed: true,
+  resave: true,
   secret: 'superSecretCodez',
-  resave:true,
-  saveUninitialized:true,
-  cookie: { maxAge: 60000 }
+  cookie: {maxAge: 12000000}
 }))
 
 app.use('/api', apiRoute)
