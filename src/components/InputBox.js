@@ -8,24 +8,15 @@ export default class InputBox extends React.Component{
       previouslySelected: [],
       hitSpaces: [],
       cpuSelectedCoordinate: undefined,
-      success: "",
       cpuHits: [],
-      cpuSelected: []
+      cpuSelected: [],
+      success = false;
     }
     this.handleChange = this.handleChange.bind(this);
+
   }
 
 
-  // @TODO
-
-// need to check if in previously selected, can't click those
-  // can't select depending on state
-// either display button to submit all coordinates based state
-// or input box to select cordinate on cpu
-// or text that says wait for cpu selection
-// need to move cpu board to be rendered in playboard to pass props to
-// need to send cpuSelected here, that way cpu can't pick same one
-// update session with cpu selection, that way it cant select the same ones
 submitMissile(){
   var status = this.props.status
   if(status === "waiting_for_player_turn"){
@@ -44,9 +35,6 @@ submitMissile(){
       this.checkPlayerSuccess(result)
     })
   }
-  // else{
-  //   // display error depending on state
-  // }
 
 }
 
@@ -62,25 +50,28 @@ checkPlayerSuccess(result){
   if(index > -1){
     r.classList.add('successfulHit clicked')
     previouslySelected.push(selectedCoordinate)
-    var playerSuccess = "Congrats!! You hit one of their ships! Time for their move!"
+    success = "Congrats!! You hit one of their ships! Time for their move!"
     this.setState({
       previouslySelected: previouslySelected,
       hitSpaces: hitArray,
-      success: playerSuccess
+      success: success
     })
     if(this.state.hitSpaces.length === 10){
       // @TODO
-        // call end game
-        // call pop up to display win?
+      this.endGame();
+      success = "CONGRATS!!! You have just defeated your oponent!!!"
         console.log('player won')
+      this.setState({
+          success: success
+      })
     }
   }else{
     r.classList.add('miss clicked')
     previouslySelected.push(selectedCoordinate)
-    var playerSuccess = "OO! Unfortunately you missed! Hopefully next time you'll get a hit!"
+    success = "OO! Unfortunately you missed! Hopefully next time you'll get a hit!"
     this.setState({
       previouslySelected: previouslySelected,
-      success: playerSuccess
+      success: success
     })
   }
   this.checkCpuSuccess(result)
@@ -98,27 +89,36 @@ checkCpuSuccess(result){
   if(index > -1){
     r.classList.add('successfulHit')
     cpuSelected.push(cpuSelectedCoordinate)
-    var cpuSuccess = "Oh no! You've been hit! Send a missile back!"
+    success = "Oh no! You've been hit! Send a missile back!"
     this.setState({
       cpuSelected: cpuSelected,
       cpuHits: hitArray,
-      success: cpuSuccess
-    })
+      success: success
+      })
     if(this.state.cpuHits.length === 10){
-      console.log('cpu won')
-        // call end game
-        // call pop up to display win?
+      this.endGame();
+      success = "All of your sinks have been sunk! You have lost your fleet"
+      this.setState({
+        success: success
+      })
     }
   }else{
     r.classList.add('miss')
     cpuSelected.push(cpuSelectedCoordinate)
-    var cpuSuccess = "That was a close one! Thankfully you weren't hit! Time to send a missile back!"
+    success = "That was a close one! Thankfully you weren't hit! Time to send a missile back!"
     this.setState({
       cpuSelected: cpuSelected,
-      success: cpuSuccess
+      success: success
     })
   }
+}
 
+endGame(){
+  fetch('/api/end',{
+   method: 'DELETE',
+  }).then(response => response.json()).then(result => {
+    console.log(result)
+  })
 }
 
 handleChange(e){
@@ -135,8 +135,8 @@ handleChange(e){
             />
       <div className="coordinateSubmitButton">
   <button type="submit" onClick={this.submitMissile.bind(this)} className="submit btn">Submit Missile</button>
+  {this.state.success ? this.state.success : null}
   </div>
-  {this.state.success}
   </div>
 
     )

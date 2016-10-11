@@ -10,18 +10,15 @@ export default class PlayerBoard extends React.Component {
     this.state ={
       playerCoordinates: [],
       cpuCoordinates: [],
-      status: 'waiting_for_coordinates'
+      status: 'waiting_for_coordinates',
+      shipsLeft: 10,
+      message: false
     }
   }
 
 
-// update count for ships left to place
-// if they try to click button before that, it displays error message
+
   chooseCoordinates(space, e){
-    // @TODO
-    // if length is 10, but want to unclick
-    // refactor so it adds function add class,
-    // else if (players.length === 10, update state addClass and update state)
     if(this.state.status === "waiting_for_coordinates"){
       var playerCoordinates = this.state.playerCoordinates
       var index = playerCoordinates.indexOf(space)
@@ -30,6 +27,7 @@ export default class PlayerBoard extends React.Component {
         playerCoordinates.splice(index, 1)
         var el = document.getElementById(id)
         el.classList.remove('playerSelected')
+        this.updateShipsLeft(1)
       }else {
         if(playerCoordinates.length < 10){
           playerCoordinates.push(space)
@@ -38,23 +36,43 @@ export default class PlayerBoard extends React.Component {
           this.setState({
             playerCoordinates: playerCoordinates
           })
+          this.updateShipsLeft(-1)
         }else{
           this.setState({
             status: 'waiting_for_send_coordinates'
           })
-          console.log('limit reached')
         }
       }
-    }else if(this.state.status ==="waiting_for_player_turn"){
-      // @TODO
-      // error handle here, tell them to select coordinate on cpu map
-
+    }else if(this.state.status ==="waiting_for_send_coordinates"){
+      var playerCoordinates = this.state.playerCoordinates
+      var index = playerCoordinates.indexOf(space)
+      var id = e.target.id
+      if(index > -1){
+        playerCoordinates.splice(index, 1)
+        var el = document.getElementById(id)
+        el.classList.remove('playerSelected')
+        this.updateShipsLeft(1)
+        this.setState({
+          status: 'waiting_for_coordinates'
+        })
+      }
     }
   }
 
+updateShipsLeft(num){
+  var shipsLeft = this.state.shipsLeft
+  var newShips = shipsLeft + num
+  this.setState({
+    shipsLeft: newShips
+  })
+}
+
   submitCoordinates(){
  // @TODO get this to work
- // if()
+ console.log(this.state.playerCoordinates)
+ console.log(this.state.playerCoordinates.length)
+ if(this.state.playerCoordinates.length === 10){
+   console.log('long enough')
  const coordinates={ 'coordinates': this.state.playerCoordinates}
     fetch('/api/setShips',{
       method: 'post',
@@ -71,6 +89,14 @@ export default class PlayerBoard extends React.Component {
         status: 'waiting_for_player_turn'
       })
     })
+}else{
+  this.setState({
+    message: "Please place your whole fleet before you submit your coordinates"
+  })
+  console.log('not long enough')
+
+}
+
   }
 
 
@@ -81,8 +107,9 @@ export default class PlayerBoard extends React.Component {
 
   render(){
     let directions = ""
+    let ships = this.state.shipsLeft
     if(this.state.status === "waiting_for_coordinates"){
-      directions = "Select 10 Coordinates for your BattleShips!"
+      directions = "Select Coordinates for your BattleShips!  " + ships+" ships left!"
     }else if(this.state.status === "waiting_for_player_turn"){
       directions = "Select the Coordinate to Attack on Enemy Map"
     }else{
@@ -113,6 +140,7 @@ export default class PlayerBoard extends React.Component {
       <div className="direction">
       {directions}
       </div>
+      {this.state.message ? this.state.message : null}
           <button type="submit" onClick={this.submitCoordinates.bind(this)} className="submit btn">Submit Coordinates</button>
       </div>
       </div>

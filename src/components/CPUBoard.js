@@ -6,16 +6,19 @@ export default class CPUBoard extends React.Component {
   constructor(props){
     super(props);
     this.state ={
-      selectedCoordinate: undefined
+      selectedCoordinate: undefined,
+      message= false
     }
-    this.message: false
   }
 
   selectCoordinate(space, e){
     var id = e.target.id
     var el = document.getElementById(id)
     if(el.classList.contains('clicked')){
-      this.message = "This space has previously been selected, please choose another one!"
+      message = "This space has previously been selected, please choose another one!"
+      this.setState({
+        message: message
+      })
       // error handle telling to select new space
     }else{
       if(this.state.selectedCoordinate !== undefined){
@@ -58,7 +61,7 @@ export default class CPUBoard extends React.Component {
           {htmlArray}
           <InputBox selectedCoordinate={this.state.selectedCoordinate} status={this.props.status} cpuCoordinates={this.props.cpuCoordinates}
           playerCoordinates={this.props.playerCoordinates}/>
-          {this.message ? this.message : null}
+          {this.state.message ? this.state.message : null}
       </div>
     )
   }
