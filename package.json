@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "node server.js",
     "watch": "webpack -d --progress --watch",
     "prod": "NODE_ENV=production node server.js",
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject"
 
