@@ -6,15 +6,17 @@
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack -d --progress --watch"
+    "watch": "webpack -d --progress --watch",
+    "build": "webpack --config ./webpack.prod.config.js --progress --colors"
   },
   "author": "Diana Frank",
   "license": "ISC",
   "dependencies": {
     "express": "^4.14.0",
     "react": "^15.3.2",
-    "react-dom": "^15.3.2"
-    },
+    "react-dom": "^15.3.2",
+    "webpack-hot-middleware": "^2.13.0"
+  },
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",

@@ -9,10 +9,10 @@ const PUBLIC     = path.resolve(__dirname, 'public')
 
 
 module.exports = {
+
   entry:{
-  javascript: `${INPUT_DIR}/app.js`,
-  html: `${INPUT_DIR}/index.html`,
-  css: `${PUBLIC}/css/main.css`
+  'webpack-hot-middleware/client',
+  javascript: `${INPUT_DIR}/app.js`
 },
   output: {
     path: OUTPUT_DIR,
@@ -29,7 +29,9 @@ module.exports = {
     }),
     new ExtractTextPlugin(`${PUBLIC}/css/main.css`, {
       allChunks: true
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin()
   ],
   module:{
     include: path.join(__dirname, 'src'),
@@ -42,8 +44,7 @@ module.exports = {
     {
       test: /\.css$/,
       loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
-    },
-
+    }
     ]
   }
 }
