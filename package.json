@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "cross-env NODE_ENV=production node server.js",
     "watch": "webpack -d --progress --watch",
     "prod": "NODE_ENV=production node server.js",
     "build": "webpack -d --progress --colors"
@@ -16,9 +16,7 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-scripts": "^0.6.1",
-    "webpack-hot-middleware": "^2.13.0"
-  },
-  "devDependencies": {
+    "webpack-hot-middleware": "^2.13.0",
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-react-transform": "^2.0.2",
@@ -42,5 +40,8 @@
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.3"
+  },
+  "devDependencies": {
+
   }
 }
