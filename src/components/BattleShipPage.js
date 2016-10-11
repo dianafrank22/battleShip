@@ -25,9 +25,9 @@ export default class BattleShipPage extends React.Component {
   render(){
     return(
       <div className="game-container">
-      <div className="player board">
-      <PlayerBoard playerBoard={this.state.playerBoard} cpuBoard={this.state.cpuBoard}/>
-      </div>
+        <div className="player board">
+          <PlayerBoard playerBoard={this.state.playerBoard} cpuBoard={this.state.cpuBoard}/>
+        </div>
       </div>
     )
   }

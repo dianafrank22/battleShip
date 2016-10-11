@@ -137,15 +137,15 @@ handleChange(e){
   render(){
     return(
       <div className="inputBox">
-      <input type="text" value={this.props.selectedCoordinate} placeholder={this.props.selectedCoordinate} onChange={this.handleChange} />
-      <div className="coordinateSubmitButton">
-  <button type="submit" onClick={this.submitMissile.bind(this)} className="shootBtn"><p className="btnName">Shoot</p></button> <br/>
-  </div>
-  <div className="successMessages">
-  {this.state.playerSuccess ? this.state.playerSuccess : null} <br/>
-  {this.state.cpuSuccess ? this.state.cpuSuccess : null}
-  </div>
-  </div>
+        <input type="text" value={this.props.selectedCoordinate} placeholder={this.props.selectedCoordinate} onChange={this.handleChange} />
+        <div className="coordinateSubmitButton">
+          <button type="submit" onClick={this.submitMissile.bind(this)} className="shootBtn"><p className="btnName">Shoot</p></button> <br/>
+        </div>
+        <div className="successMessages">
+          {this.state.playerSuccess ? this.state.playerSuccess : null} <br/>
+          {this.state.cpuSuccess ? this.state.cpuSuccess : null}
+        </div>
+      </div>
 
     )
 

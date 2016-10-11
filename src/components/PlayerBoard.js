@@ -107,32 +107,31 @@ updateShipsLeft(num){
     let spaceHtml = "";
     let htmlArray =[];
     const array = this.props.playerBoard
-    for(let i=0; i< array.length; i++){
-      const spaces = array[i]
-      for(let j=0; j< spaces.length; j++){
-        var space = spaces[j]
-        let clickHandler = this.chooseCoordinates.bind(this, space)
-        spaceHtml = <div className="player space" id={'player-space'+space} key={space} value={space} onClick={clickHandler}> {space} </div>
-        htmlArray.push(spaceHtml)
-      }
+      for(let i=0; i< array.length; i++){
+        const spaces = array[i]
+        for(let j=0; j< spaces.length; j++){
+          var space = spaces[j]
+          let clickHandler = this.chooseCoordinates.bind(this, space)
+          spaceHtml = <div className="player space" id={'player-space'+space} key={space} value={space} onClick={clickHandler}> {space} </div>
+          htmlArray.push(spaceHtml)
+        }
     }
     return(
       <div className="game-container">
-      <div className="enemy board">
-      <CPUBoard cpuBoard={this.props.cpuBoard} status={this.state.status} cpuCoordinates={this.state.cpuCoordinates} playerCoordinates={this.state.playerCoordinates}/>
-      </div>
-      <div className="playerContainer">
-      <h3> Your map </h3>
-      <div className="player-map">
-          {htmlArray}
-      </div>
-      <div className="direction">
-      {directions}
-      </div>
-      {this.state.message ? this.state.message : null} <br/>
-      {show ? null :  <button type="submit" onClick={this.submitCoordinates.bind(this)} className="submit btn">Submit Coordinates</button> }
-
-      </div>
+        <div className="enemy board">
+          <CPUBoard cpuBoard={this.props.cpuBoard} status={this.state.status} cpuCoordinates={this.state.cpuCoordinates} playerCoordinates={this.state.playerCoordinates}/>
+        </div>
+        <div className="playerContainer">
+          <h3> Your map </h3>
+          <div className="player-map">
+            {htmlArray}
+          </div>
+          <div className="direction">
+            {directions}
+          </div>
+          {this.state.message ? this.state.message : null} <br/>
+          {show ? null :  <button type="submit" onClick={this.submitCoordinates.bind(this)} className="submit btn">Submit Coordinates</button> }
+          </div>
       </div>
     )
   }

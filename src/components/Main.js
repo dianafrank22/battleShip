@@ -24,9 +24,9 @@ export default class Main extends React.Component{
   render(){
     return(
       <div className="game-board">
-      <h2 className="title"> Battleship</h2>
-      <BattleShip/>
-      <button type="submit" onClick={this.endGame.bind(this)} className="endGame btn">End Game</button>
+        <h2 className="title"> Battleship</h2>
+        <BattleShip/>
+        <button type="submit" onClick={this.endGame.bind(this)} className="endGame btn">End Game</button>
       </div>
     )
 
