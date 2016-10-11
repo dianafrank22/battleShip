@@ -26,12 +26,12 @@ router.put('/setShips', setPlayerShips, createCpuCoordinates, (req, res) => {
 
 // end game
 router.delete('/end', endGame, (req, res) => {
+  console.log(res)
   res.status(200).json({response: res.game})
 })
 
 // // Accepts coordinates for the player’s next move.
 router.post('/missile', sendPlayersMove, getCPUMove, (req, res) =>{
-  console.log(res.cpuSelectedCoordinate)
   res.json({response: res.cpuSelectedCoordinate})
 })
 

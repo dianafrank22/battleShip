@@ -7,7 +7,7 @@ export default class CPUBoard extends React.Component {
     super(props);
     this.state ={
       selectedCoordinate: undefined,
-      message: false
+      message: ""
     }
   }
 

@@ -12,8 +12,10 @@ function createGame(req, res, next){
 
 function endGame(req, res, next){
   if(req.originalUrl === '/api/end'){
+    console.log(req.session)
     req.session.destroy(function(err){
       res.game = 'game is over'
+      console.log(req.session)
     })
   }
   next();
@@ -32,36 +34,47 @@ function createCpuCoordinates(req, res, next){
   var max = Math.floor(4)
   var alphabet = ['A', 'B', 'C', 'D', 'E']
   var coordinates =[]
-  for(var i=0; i<11; i++){
+  for(var i=0; i<11){
     var first = Math.floor(Math.random()*(max-min+1))+min;
     var letter = alphabet[first]
     var second =Math.floor(Math.random()*(max-min+1))+min;
     var coordinate = letter+second
-    coordinates.push(coordinate)
+    if(coordinates.includes(coordinate)){
+      i = i
+    }else{
+      coordinates.push(coordinate)
+      i++
+    }
     res.cpuCoordinates = coordinates
   }
   next();
 }
 
-function getCPUMove(req, res, next){
-  console.log(req.body)
-  // @TODO make sure its not in req.session.game.cpuSelections
-  if(req.originalUrl === '/api/missile'){
-    var min = Math.ceil(0)
-    var max = Math.floor(4)
-    var alphabet = ['A', 'B', 'C', 'D', 'E']
-    var first = Math.floor(Math.random()*(4-min+1))+min;
-    var letter = alphabet[first]
-    var second =Math.floor(Math.random()*(max-min+1))+min;
-    var coordinate = letter+second
-    res.cpuSelectedCoordinate = coordinate
-  }
 
+
+function getCPUMove(req, res, next){
+  if(req.originalUrl === '/api/missile'){
+      var min = Math.ceil(0)
+      var max = Math.floor(4)
+      var alphabet = ['A', 'B', 'C', 'D', 'E']
+      var first = Math.floor(Math.random()*(4-min+1))+min;
+      var letter = alphabet[first]
+      var second =Math.floor(Math.random()*(max-min+1))+min;
+      var coordinate = letter+second
+      var previouslySelected = req.body.cpuSelected
+    if(previouslySelected.includes(coordinate)){
+      getCPUMove(req, res, next);
+    }else{
+      res.cpuSelectedCoordinate = coordinate
+
+    }
+  }
   next();
 }
 
+
+
 function sendPlayersMove(req, res, next){
-  console.log(req.body)
   if(req.originalUrl === '/api/missile'){
     res.playersChoice = req.body.selectedCoordinate
   }

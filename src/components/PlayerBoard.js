@@ -12,7 +12,7 @@ export default class PlayerBoard extends React.Component {
       cpuCoordinates: [],
       status: 'waiting_for_coordinates',
       shipsLeft: 10,
-      message: false
+      message: ""
     }
   }
 
@@ -80,7 +80,6 @@ updateShipsLeft(num){
       }
     }).then(response =>
     response.json()).then(result => {
-      console.log(result)
       this.setState({
         cpuCoordinates: result.response,
         status: 'waiting_for_player_turn'
