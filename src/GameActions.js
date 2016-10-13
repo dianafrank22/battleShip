@@ -40,19 +40,25 @@ export function submitPlayerCoordinate(coordinates){
   }
 }
 
-// submitMissile
-//
-// fetch('/api/missile',{
-//   method: 'POST',
-//   body: JSON.stringify(info),
-//   headers: {
-//     'Accept': 'application/json',
-//     'Content-Type': 'application/json'
-//   }
-// }).then(response =>
-// response.json()).then(result => {
-//   this.setState({
-//     cpuSelectedCoordinate: result.response
-//   })
-//   this.checkPlayerSuccess(result)
-// })
+export function submitMissile(info){
+  return function(dispatch){
+    return new Promise(function(resolve,reject)){
+      fetch('/api/missile',{
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers:{
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then((response) => {
+        if(response.status >= 400){
+          reject(new Error('Bad response from server!'))
+        }
+        response.json().then((body)=>{
+          console.log(body)
+          resolve(JSON.parse(body))
+        })
+      })
+    }
+  }
+}

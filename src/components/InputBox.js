@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {submitMissile} from '../GameActions'
+
 
 export default class InputBox extends React.Component{
   constructor(props){
@@ -18,27 +20,28 @@ export default class InputBox extends React.Component{
   }
 
 // @TODO
+
+
 submitMissile(){
   var status = this.props.status
   var info = {'selectedCoordinate': this.props.selectedCoordinate, 'cpuSelected': this.state.cpuSelected}
   if(status === "waiting_for_player_turn"){
-    fetch('/api/missile',{
-      method: 'POST',
-      body: JSON.stringify(info),
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    }).then(response =>
-    response.json()).then(result => {
+    dispatch(submitMissile(info)).then((data) => {
+      console.log('in submit missile result')
+      console.log(data)
       this.setState({
-        cpuSelectedCoordinate: result.response
+        cpuSelectedCoordinate: data.response
       })
-      this.checkPlayerSuccess(result)
+      this.checkPlayerSuccess(data)
     })
   }
-
 }
+
+// check results
+// arrayofcoordinates
+// selected coordinate
+// classnames
+
 
 checkPlayerSuccess(result){
   var cpuCoordinates = this.props.cpuCoordinates

@@ -12,6 +12,8 @@ export default class BattleShipPage extends React.Component {
     this.createGame()
   }
 
+  // @TODO refactor initial state 
+
   createGame(){
     fetch('/api/start').then(response => response.json()).then(result => {
       this.setState({
