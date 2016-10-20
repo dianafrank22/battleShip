@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import InputBox from './InputBox'
-import {addClass, submitPlayerCoordinate} from '../GameActions'
 
 export default class CPUBoard extends React.Component {
   constructor(props){
@@ -13,21 +12,24 @@ export default class CPUBoard extends React.Component {
 
   selectCoordinate(space, e){
     var id = e.target.id
-    var className = 'selectedCoordinate'
+    var el = document.getElementById(id)
     if(el.classList.contains('clicked')){
       var message = "This space has previously been selected, please choose another one!"
       this.setState({
         message: message
       })
     }else{
+      this.setState({
+        message: ""
+      })
       if(this.state.selectedCoordinate !== undefined){
         var remove = this.state.selectedCoordinate
         var r = document.getElementById('cpu-space'+remove)
         r.classList.remove('selectedCoordinate')
-        dispatch(addClass(id, className))
+        el.classList.add('selectedCoordinate')
         this.updateSelectedCoordinate(space)
       }else{
-        dispatch(addClass(id, className))
+        el.classList.add('selectedCoordinate')
         this.updateSelectedCoordinate(space)
       }
     }

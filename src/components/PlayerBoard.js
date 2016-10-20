@@ -1,7 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import InputBox from './InputBox'
 import CPUBoard from './CPUBoard'
-import {removeClass, addClass, submitPlayerCoordinate} from '../GameActions'
 
 export default class PlayerBoard extends React.Component {
   constructor(props){
@@ -15,67 +14,80 @@ export default class PlayerBoard extends React.Component {
     }
   }
 
-  chooseCoordinates(space, e){
-    var playerCoordinates = this.state.playerCoordinates
-    var index = playerCoordinates.indexOf(space)
-    var id = e.target.id
-    var className = 'playerSelected'
-    if(this.state.status === "waiting_for_coordinates"){
-      if(index > -1){
-        dispatch(removeClass(id, className))
-        playerCoordinates.splice(index, 1)
-        this.updateShipsLeft(1)
-      }else {
-        if(playerCoordinates.length < 10){
-          playerCoordinates.push(space)
+
+    chooseCoordinates(space, e){
+      if(this.state.status === "waiting_for_coordinates"){
+        var playerCoordinates = this.state.playerCoordinates
+        var index = playerCoordinates.indexOf(space)
+        var id = e.target.id
+        if(index > -1){
+          playerCoordinates.splice(index, 1)
+          var el = document.getElementById(id)
+          el.classList.remove('playerSelected')
+          this.updateShipsLeft(1)
+        }else {
+          if(playerCoordinates.length < 10){
+            playerCoordinates.push(space)
+            var el =  document.getElementById(id)
+            el.classList.add('playerSelected')
+            this.setState({
+              playerCoordinates: playerCoordinates
+            })
+            this.updateShipsLeft(-1)
+          }else{
+            this.setState({
+              status: 'waiting_for_send_coordinates'
+            })
+          }
+        }
+      }else if(this.state.status ==="waiting_for_send_coordinates"){
+        var playerCoordinates = this.state.playerCoordinates
+        var index = playerCoordinates.indexOf(space)
+        var id = e.target.id
+        if(index > -1){
+          playerCoordinates.splice(index, 1)
+          var el = document.getElementById(id)
+          el.classList.remove('playerSelected')
+          this.updateShipsLeft(1)
           this.setState({
-            playerCoordinates: playerCoordinates
-          })
-          dispatch(addClass(id, className))
-          this.updateShipsLeft(-1)
-        }else{
-          this.setState({
-            status: 'waiting_for_send_coordinates'
+            status: 'waiting_for_coordinates'
           })
         }
       }
-    }else if(this.state.status ==="waiting_for_send_coordinates"){
-      if(index > -1){
-        playerCoordinates.splice(index, 1)
-        dispatch(removeClass(id, className))
-        this.updateShipsLeft(1)
-        this.setState({
-          status: 'waiting_for_coordinates'
-        })
-      }
     }
+
+  updateShipsLeft(num){
+    var shipsLeft = this.state.shipsLeft
+    var newShips = shipsLeft + num
+    this.setState({
+      shipsLeft: newShips
+    })
   }
 
-updateShipsLeft(num){
-  var shipsLeft = this.state.shipsLeft
-  var newShips = shipsLeft + num
-  this.setState({
-    shipsLeft: newShips
-  })
-}
-
-  submitCoordinates(){
- if(this.state.playerCoordinates.length === 10){
+    submitCoordinates(){
+   if(this.state.playerCoordinates.length === 10){
    const coordinates={ 'coordinates': this.state.playerCoordinates}
-      dispatch(submitPlayerCoordinate(coordinates)).then((data) => {
+      fetch('/api/setShips',{
+        method: 'put',
+        body: JSON.stringify(coordinates),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then(response =>
+      response.json()).then(result => {
         this.setState({
-          cpuCoordinates: data.response,
+          cpuCoordinates: result.response,
           status: 'waiting_for_player_turn'
         })
       })
-}else{
-  this.setState({
-    message: "Please place your whole fleet before you submit your coordinates"
-  })
-}
+  }else{
+    this.setState({
+      message: "Please place your whole fleet before you submit your coordinates"
+    })
+  }
 
-}
-
+  }
 
   render(){
     let directions = ""

@@ -17,8 +17,7 @@ router.put('/setShips', game.setPlayerShips, game.createCpuCoordinates, (req, re
 
 // end game
 router.delete('/end', game.endGame, (req, res) => {
-  console.log(res)
-  res.status(200).json({response: res.game})
+  res.json({response: res.game})
 })
 
 // // Accepts coordinates for the player’s next move.

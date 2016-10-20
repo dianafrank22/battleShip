@@ -12,10 +12,8 @@ function createGame(req, res, next){
 
 function endGame(req, res, next){
   if(req.originalUrl === '/api/end'){
-    console.log(req.session)
     req.session.destroy(function(err){
       res.game = 'game is over'
-      console.log(req.session)
     })
   }
   next();

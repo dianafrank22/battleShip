@@ -13,11 +13,6 @@ body{
 }
 
 
-
-.board{
-  background: url('http://0.s3.envato.com/files/148651181/new_old_map_2015_bkgrnd.jpg');
-}
-
 .space{
   border: gray solid 1px;
   float: left;
@@ -88,7 +83,7 @@ clear: both;
 
 .miss{
   /*x*/
-  background: url('http://www.iconsdb.com/icons/preview/white/x-mark-xxl.png');
+  background: url(http://www.iconsdb.com/icons/preview/white/x-mark-xxl.png);
   background-color: black;
   background-repeat: no-repeat;
   background-size: contain;
