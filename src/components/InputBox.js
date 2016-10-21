@@ -17,30 +17,7 @@ export default class InputBox extends React.Component{
 
   }
 
-  // @TODO
-  submitMissile(){
-    var status = this.props.status
-    var info = {'selectedCoordinate': this.props.selectedCoordinate, 'cpuSelected': this.state.cpuSelected}
-    if(status === "waiting_for_player_turn"){
-      fetch('/api/missile',{
-        method: 'POST',
-        body: JSON.stringify(info),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      }).then(response =>
-      response.json()).then(result => {
-        this.setState({
-          cpuSelectedCoordinate: result.response
-        })
-        this.checkPlayerSuccess(result)
-      })
-    }
-
-  }
-
-  checkPlayerSuccess(result){
+  checkPlayerSuccess(){
     var cpuCoordinates = this.props.cpuCoordinates
     var selectedCoordinate = this.props.selectedCoordinate
     var index = cpuCoordinates.indexOf(selectedCoordinate)
@@ -68,6 +45,7 @@ export default class InputBox extends React.Component{
           hitSpaces: hitArray,
           playerSuccess: success
         })
+        this.submitMissile()
       }
     }else{
       r.classList.add('miss')
@@ -78,11 +56,37 @@ export default class InputBox extends React.Component{
         previouslySelected: previouslySelected,
         playerSuccess: success
       })
+      this.submitMissile()
     }
-    this.checkCpuSuccess(result)
+  }
+
+  submitMissile(){
+    console.log('in submit missile')
+    var status = this.props.status
+    console.log(status)
+    var info = {'selectedCoordinate': this.props.selectedCoordinate, 'cpuSelected': this.state.cpuSelected}
+    if(status === "waiting_for_player_turn"){
+      fetch('/api/missile',{
+        method: 'POST',
+        body: JSON.stringify(info),
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      }).then(response =>
+      response.json()).then(result => {
+        this.setState({
+          cpuSelectedCoordinate: result.response
+        })
+        this.checkCpuSuccess(result)
+      })
+    }
+
   }
 
   checkCpuSuccess(result){
+    console.log('in check cpu status')
+    console.log(this.state.cpuSelectedCoordinate)
     var playerCoordinates = this.props.playerCoordinates
     var cpuSelectedCoordinate = this.state.cpuSelectedCoordinate
     var index = playerCoordinates.indexOf(cpuSelectedCoordinate)
@@ -125,11 +129,6 @@ export default class InputBox extends React.Component{
      method: 'DELETE',
     }).then(response => response.json()).then(result => {
       console.log(result)
-      // var success = "GAME OVER"
-      // this.setState({
-      //   playerSuccess: "",
-      //   cpuSuccess: success
-      // })
     })
   }
 
@@ -141,7 +140,7 @@ export default class InputBox extends React.Component{
       <div className="inputBox">
         <input type="text" value={this.props.selectedCoordinate} placeholder={this.props.selectedCoordinate} onChange={this.handleChange} />
         <div className="coordinateSubmitButton">
-          <button type="submit" onClick={this.submitMissile.bind(this)} className="shootBtn"><p className="btnName">Shoot</p></button> <br/>
+          <button type="submit" onClick={this.checkPlayerSuccess.bind(this)} className="shootBtn"><p className="btnName">Shoot</p></button> <br/>
         </div>
         <div className="successMessages">
           {this.state.playerSuccess ? this.state.playerSuccess : null} <br/>

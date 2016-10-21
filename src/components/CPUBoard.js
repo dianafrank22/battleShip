@@ -49,13 +49,11 @@ export default class CPUBoard extends React.Component {
     let htmlArray =[];
     const array = this.props.cpuBoard
     for(let i=0; i< array.length; i++){
-      const spaces = array[i]
-      for(let j=0; j< spaces.length; j++){
-        var space = spaces[j]
+        const space = array[i]
         let clickHandler = this.selectCoordinate.bind(this, space)
         spaceHtml = <div id={'cpu-space'+space} className="cpu space" key={space} value={space} onClick={clickHandler}> {space} </div>
         htmlArray.push(spaceHtml)
-      }
+
     }
     return(
       <div className="enemy-map">

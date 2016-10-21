@@ -15,79 +15,81 @@ export default class PlayerBoard extends React.Component {
   }
 
 
-    chooseCoordinates(space, e){
-      if(this.state.status === "waiting_for_coordinates"){
+  chooseCoordinates(space, e){
+    if(this.state.status === "waiting_for_coordinates"){
         var playerCoordinates = this.state.playerCoordinates
         var index = playerCoordinates.indexOf(space)
         var id = e.target.id
-        if(index > -1){
-          playerCoordinates.splice(index, 1)
-          var el = document.getElementById(id)
-          el.classList.remove('playerSelected')
-          this.updateShipsLeft(1)
-        }else {
-          if(playerCoordinates.length < 10){
-            playerCoordinates.push(space)
-            var el =  document.getElementById(id)
-            el.classList.add('playerSelected')
-            this.setState({
-              playerCoordinates: playerCoordinates
-            })
-            this.updateShipsLeft(-1)
-          }else{
-            this.setState({
-              status: 'waiting_for_send_coordinates'
-            })
-          }
-        }
-      }else if(this.state.status ==="waiting_for_send_coordinates"){
-        var playerCoordinates = this.state.playerCoordinates
-        var index = playerCoordinates.indexOf(space)
-        var id = e.target.id
-        if(index > -1){
-          playerCoordinates.splice(index, 1)
-          var el = document.getElementById(id)
-          el.classList.remove('playerSelected')
-          this.updateShipsLeft(1)
+      if(index > -1){
+        playerCoordinates.splice(index, 1)
+        var el = document.getElementById(id)
+        el.classList.remove('playerSelected')
+        this.updateShipsLeft(1)
+      }else {
+        if(playerCoordinates.length < 10){
+          playerCoordinates.push(space)
+          var el =  document.getElementById(id)
+          el.classList.add('playerSelected')
           this.setState({
-            status: 'waiting_for_coordinates'
+            playerCoordinates: playerCoordinates
+          })
+          this.updateShipsLeft(-1)
+        }else{
+          this.setState({
+            status: 'waiting_for_send_coordinates'
           })
         }
       }
+    }else if(this.state.status ==="waiting_for_send_coordinates"){
+        var playerCoordinates = this.state.playerCoordinates
+        var index = playerCoordinates.indexOf(space)
+        var id = e.target.id
+      if(index > -1){
+          playerCoordinates.splice(index, 1)
+          var el = document.getElementById(id)
+          el.classList.remove('playerSelected')
+          this.updateShipsLeft(1)
+        this.setState({
+          status: 'waiting_for_coordinates'
+        })
+      }
     }
-
-  updateShipsLeft(num){
-    var shipsLeft = this.state.shipsLeft
-    var newShips = shipsLeft + num
-    this.setState({
-      shipsLeft: newShips
-    })
   }
 
-    submitCoordinates(){
-   if(this.state.playerCoordinates.length === 10){
-   const coordinates={ 'coordinates': this.state.playerCoordinates}
-      fetch('/api/setShips',{
-        method: 'put',
-        body: JSON.stringify(coordinates),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        }
-      }).then(response =>
-      response.json()).then(result => {
-        this.setState({
-          cpuCoordinates: result.response,
-          status: 'waiting_for_player_turn'
+updateShipsLeft(num){
+  var shipsLeft = this.state.shipsLeft
+  var newShips = shipsLeft + num
+  this.setState({
+    shipsLeft: newShips
+  })
+}
+
+submitCoordinates(){
+  if(this.state.playerCoordinates.length === 10){
+     const coordinates={ 'coordinates': this.state.playerCoordinates}
+        fetch('/api/setShips',{
+          method: 'put',
+          body: JSON.stringify(coordinates),
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          }
+        }).then(response =>
+        response.json()).then(result => {
+          this.setState({
+            cpuCoordinates: result.response,
+            status: 'waiting_for_player_turn'
+          })
         })
-      })
+    this.setState({
+      status: 'waiting_for_player_turn'
+    })
   }else{
     this.setState({
       message: "Please place your whole fleet before you submit your coordinates"
     })
   }
-
-  }
+}
 
   render(){
     let directions = ""
@@ -106,13 +108,10 @@ export default class PlayerBoard extends React.Component {
     let htmlArray =[];
     const array = this.props.playerBoard
       for(let i=0; i< array.length; i++){
-        const spaces = array[i]
-        for(let j=0; j< spaces.length; j++){
-          var space = spaces[j]
+          const space = array[i]
           let clickHandler = this.chooseCoordinates.bind(this, space)
           spaceHtml = <div className="player space" id={'player-space'+space} key={space} value={space} onClick={clickHandler}> {space} </div>
           htmlArray.push(spaceHtml)
-        }
     }
     return(
       <div className="game-container">

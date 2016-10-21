@@ -1,11 +1,12 @@
 const BattleShip = require('./battleship');
+const cpuBoard = new BattleShip();
+const playerBoard = new BattleShip();
 
 function createGame(req, res, next){
   if(req.originalUrl === '/api/start'){
-    const game = new BattleShip();
-    res.game = game
-    var sess = req.session
-    sess.game = res.game
+    cpuBoard.createBoard();
+    playerBoard.createBoard();
+    res.game = cpuBoard
   }
   next();
 }
@@ -27,51 +28,25 @@ function setPlayerShips(req, res, next){
   next();
 }
 
-function createCpuCoordinates(req, res, next){
-  var min = Math.ceil(0)
-  var max = Math.floor(4)
-  var alphabet = ['A', 'B', 'C', 'D', 'E']
-  var coordinates =[]
-  for(var i=0; i<11; i){
-    var first = Math.floor(Math.random()*(max-min+1))+min;
-    var letter = alphabet[first]
-    var second =Math.floor(Math.random()*(max-min+1))+min;
-    var coordinate = letter+second
-    var id = coordinates.indexOf(coordinate)
-    if(id >= 0){
-      i = i
-    }else{
-      coordinates.push(coordinate)
-      i++
-    }
-    res.cpuCoordinates = coordinates
+
+
+function createCpuCoordinates(req, res){
+  var possiblePieces = cpuBoard.board;
+  var coordinates = []
+  while (coordinates.length < 11){
+    coordinates.push(cpuBoard.remove(Math.floor(Math.random()*(possiblePieces.length+1))))
   }
-  next();
+  res.cpuCoordinates
 }
-
-
 
 function getCPUMove(req, res, next){
+  console.log('in get cpu move')
   if(req.originalUrl === '/api/missile'){
-      var min = Math.ceil(0)
-      var max = Math.floor(4)
-      var alphabet = ['A', 'B', 'C', 'D', 'E']
-      var first = Math.floor(Math.random()*(4-min+1))+min;
-      var letter = alphabet[first]
-      var second =Math.floor(Math.random()*(max-min+1))+min;
-      var coordinate = letter+second
-      var previouslySelected = req.body.cpuSelected
-      var id = previouslySelected.indexOf(coordinate)
-    if(id >= 0){
-      getCPUMove(req, res, next);
-    }else{
-      res.cpuSelectedCoordinate = coordinate
-
-    }
+    var possiblePieces = playerBoard.board
+    // var coordinate = playerBoard.remove(Math.floor(Math.random()*(possiblePieces.length+1)))
+    res.cpuSelectedCoordinate = playerBoard.remove(Math.floor(Math.random()*(possiblePieces.length+1)))
   }
-  next();
 }
-
 
 
 function sendPlayersMove(req, res, next){

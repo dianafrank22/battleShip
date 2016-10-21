@@ -21,7 +21,8 @@ router.delete('/end', game.endGame, (req, res) => {
 })
 
 // // Accepts coordinates for the player’s next move.
-router.post('/missile', game.sendPlayersMove, game.getCPUMove, (req, res) =>{
+router.post('/missile', game.getCPUMove, (req, res) =>{
+  console.log(res.cpuSelectedCoordinate)
   res.json({response: res.cpuSelectedCoordinate})
 })
 

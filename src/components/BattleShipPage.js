@@ -8,17 +8,18 @@ export default class BattleShipPage extends React.Component {
     this.state ={
       playerBoard: props.initialValue || [['00', '01', '02', '03', '04'], ['10', '11', '12', '13', '14'], ['20', '21', '22', '23', '24'], ['30', '31', '32', '33', '34'], ['40', '41', '42', '43', '44']],
       cpuBoard: props.initialValue || [['00', '01', '02', '03', '04'], ['10', '11', '12', '13', '14'], ['20', '21', '22', '23', '24'], ['30', '31', '32', '33', '34'], ['40', '41', '42', '43', '44']],
-    }
+    },
     this.createGame()
   }
 
-  // @TODO refactor initial state 
+  // @TODO refactor initial state
 
   createGame(){
     fetch('/api/start').then(response => response.json()).then(result => {
+      console.log(result)
       this.setState({
-        playerBoard: result.response.playerBoard,
-        cpuBoard: result.response.cpuBoard
+        playerBoard: result.response.board,
+        cpuBoard: result.response.board
       })
     })
   }
