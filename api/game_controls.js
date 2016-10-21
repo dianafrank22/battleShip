@@ -40,11 +40,11 @@ function createCpuCoordinates(req, res){
 }
 
 function getCPUMove(req, res, next){
-  console.log('in get cpu move')
   if(req.originalUrl === '/api/missile'){
     var possiblePieces = playerBoard.board
     res.cpuSelectedCoordinate = playerBoard.remove(Math.floor(Math.random()*(possiblePieces.length+1)))
   }
+  next();
 }
 
 
